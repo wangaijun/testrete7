@@ -9,9 +9,7 @@ class NumComponent extends Rete.Component {
     }
 
     builder(node) {
-        let out = new Rete.Output('Number',this.numSocket);
-
-        node.addControl(new NumControl(this.editor, 'num', this.vueComponent)).addOutput(out);
+        node.addControl(new NumControl(this.editor, 'num', this.vueComponent));
     }
 
     worker(node, inputs, outputs){
