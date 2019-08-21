@@ -11,39 +11,47 @@
   import VueRenderPlugin from 'rete-vue-render-plugin';
 
   import {NumComponent} from "../components/NumComponent"
+  import VueNumControl from "../components/VueNumControl"
 
   const numSocket = new Rete.Socket('Number value');
 
 export default {
   name: 'home',
+  components: {
+    VueNumControl
+  },
   mounted() {
     const container = document.querySelector('#rete');
-    const numComponent = new NumComponent(numSocket);
 
     const editor = new Rete.NodeEditor('demo@0.1.0', container);
     editor.use(VueRenderPlugin)
+
+    const numComponent = new NumComponent(numSocket, editor, VueNumControl);
 
     const engine = new Rete.Engine('demo@0.1.0');
 
     editor.register(numComponent);
     engine.register(numComponent)
 
-    let numNode = new Rete.Node('Number');
-    numNode.position = [80,200];
-    editor.addNode(numNode)
+    numComponent.createNode({num: 2})
+        .then(numNode => {
+            numNode.position = [80,200];
+            editor.addNode(numNode)
 
-    editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
-      await engine.abort();
-      await engine.process(editor.toJSON());
-    });
+            editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
+              await engine.abort();
+              await engine.process(editor.toJSON());
+            });
 
-    editor.view.resize();
-    AreaPlugin.zoomAt(editor);
-    editor.trigger('process');
+            editor.view.resize();
+            AreaPlugin.zoomAt(editor);
+            editor.trigger('process');
 
-    let data = editor.toJSON()
-    console.log(data)
-    this.ret = 0
+            let data = editor.toJSON()
+            console.log(data)
+            this.ret = 0
+        })
+
   },
   data () {
     return {
@@ -56,5 +64,11 @@ export default {
 <style>
   .socket.number{
     background: #96b38a
+  }
+  .home {
+
+  }
+  .home .node-editor{
+    height: 200px;
   }
 </style>
