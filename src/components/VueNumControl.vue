@@ -1,5 +1,19 @@
 <template>
-    <input type="number" :readonly="readonly" :value="value" @input="change($event)" @dblclick.stop="" @pointerdown.stop="" @pointermove.stop=""/>
+    <div class="edit-box">
+        <el-input v-model="name"><template slot="prepend">工作任务:</template></el-input>
+        <div class="el-input el-input-group el-input-group--prepend">
+            <div class="el-input-group__prepend">开始时间:</div>
+            <el-input-number v-model="startTime" :min="0" controls-position="right"></el-input-number>
+        </div>
+        <div class="el-input el-input-group el-input-group--prepend">
+            <div class="el-input-group__prepend">工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;期:</div>
+            <el-input-number v-model="days" :min="1" controls-position="right"></el-input-number>
+        </div>
+        <div class="el-input el-input-group el-input-group--prepend">
+            <div class="el-input-group__prepend">注意事项:</div>
+            <el-input type="textarea" rows="2" resize="none" v-model="notes" ></el-input>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -8,26 +22,26 @@
         props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
         data() {
             return {
-                value: 0,
+                name: '',
+                startTime: 0,
+                days: 0,
+                notes: '',
+                num8: 0,
             }
         },
         methods: {
-            change(e){
-                this.value = +e.target.value;
-                this.update();
-            },
-            update() {
-                if (this.ikey)
-                    this.putData(this.ikey, this.value)
-                this.emitter.trigger('process');
+            handleChange (value) {
+                console.log(value);
             }
-        },
-        mounted() {
-            this.value = this.getData(this.ikey);
         }
     }
 </script>
 
 <style scoped>
-
+    .edit-box {
+        width: 281px;
+    }
+    .edit-box .el-input-group {
+        margin-bottom: 1px;
+    }
 </style>
