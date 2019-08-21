@@ -35,9 +35,12 @@ export default {
     (async () => {
       engine.register(numComponent)
 
-      const numNode = await numComponent.createNode({num: 2});
-      numNode.position = [80,200];
-      editor.addNode(numNode)
+      const n1 = await numComponent.createNode({num: 2});
+      const n2 = await numComponent.createNode({num: 4});
+      n1.position = [80,200];
+      n2.position = [80, 400];
+      editor.addNode(n1)
+      editor.addNode(n2)
 
       editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
         await engine.abort();
@@ -69,6 +72,6 @@ export default {
 
   }
   .home .node-editor{
-    height: 200px;
+    height: 400px;
   }
 </style>
