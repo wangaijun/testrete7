@@ -26,7 +26,7 @@ export default {
     const editor = new Rete.NodeEditor('demo@0.1.0', container);
     editor.use(VueRenderPlugin)
 
-    const numComponent = new NumComponent(editor, VueNumControl);
+    const numComponent = new NumComponent(editor, VueNumControl, numSocket);
 
     const engine = new Rete.Engine('demo@0.1.0');
 
