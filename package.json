@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "css-loader": "^3.2.0",
+    "element-ui": "^2.11.1",
     "rete": "^1.4.1",
     "rete-connection-plugin": "^0.8.2",
     "rete-vue-render-plugin": "^0.4.0",
