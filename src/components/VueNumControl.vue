@@ -26,22 +26,26 @@
                 startTime: 0,
                 days: 0,
                 notes: '',
-                num8: 0,
             }
         },
         methods: {
-            handleChange (value) {
-                console.log(value);
-            }
         }
     }
 </script>
 
-<style scoped>
+<style>
     .edit-box {
         width: 281px;
     }
     .edit-box .el-input-group {
-        margin-bottom: 1px;
+    }
+    .edit-box .el-input-group__prepend {
+        border-radius: 0px !important;
+    }
+    .edit-box .el-textarea__inner {
+        border-radius: 0px !important;
+    }
+    .edit-box .el-input__inner{
+        border-radius: 0px !important;
     }
 </style>
