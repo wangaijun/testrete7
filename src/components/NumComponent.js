@@ -14,12 +14,11 @@ class NumComponent extends Rete.Component {
         inp1.addControl(new NumControl(this.editor, 'num'))
         return node
             .addInput(inp1)
-            .addControl(new NumControl(this.editor, 'num', this.vueComponent))
+            .addControl(new NumControl(this.editor, 'preview', this.vueComponent))
             .addOutput(out)
     }
 
     worker(node, inputs, outputs){
-        outputs[0] = node.data.num;
     }
 }
 

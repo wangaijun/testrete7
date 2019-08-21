@@ -1,6 +1,8 @@
 <template>
 
-    <div id="rete"></div>
+    <div id="rete">
+      <svg class="connection"><path class="main-path" d="M 842.084325518868 600.8071889132012 C 765.4559436492686 244.8071889132012 781.6552801928664 261.2978322691326 771.6552801928664 161.2978322691326"></path></svg>
+    </div>
 <!--    <div>{{ret}}</div>-->
 
 </template>
