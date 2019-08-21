@@ -1,7 +1,7 @@
 import {NumControl} from "./NumControl"
 
 class NumComponent extends Rete.Component {
-    constructor(numSocket, editor, vueComponent){
+    constructor(editor, vueComponent){
         super('工作任务项');
         this.editor = editor
         this.vueComponent = vueComponent
