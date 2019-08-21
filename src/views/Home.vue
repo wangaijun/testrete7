@@ -31,27 +31,27 @@ export default {
     const engine = new Rete.Engine('demo@0.1.0');
 
     editor.register(numComponent);
-    engine.register(numComponent)
 
-    numComponent.createNode({num: 2})
-        .then(numNode => {
-            numNode.position = [80,200];
-            editor.addNode(numNode)
+    (async () => {
+      engine.register(numComponent)
 
-            editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
-              await engine.abort();
-              await engine.process(editor.toJSON());
-            });
+      const numNode = await numComponent.createNode({num: 2});
+      numNode.position = [80,200];
+      editor.addNode(numNode)
 
-            editor.view.resize();
-            AreaPlugin.zoomAt(editor);
-            editor.trigger('process');
+      editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
+        await engine.abort();
+        await engine.process(editor.toJSON());
+      });
 
-            let data = editor.toJSON()
-            console.log(data)
-            this.ret = 0
-        })
+      editor.view.resize();
+      AreaPlugin.zoomAt(editor);
+      editor.trigger('process');
 
+      let data = editor.toJSON()
+      console.log(data)
+      this.ret = 0
+    })();
   },
   data () {
     return {
