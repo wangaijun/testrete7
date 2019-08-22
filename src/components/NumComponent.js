@@ -9,6 +9,7 @@ class NumComponent extends Rete.Component {
     }
 
     builder(node) {
+        console.log('++++++++++++')
         var inp1 = new Rete.Input('num1',"输入", this.numSocket, true); // 下同，第四个参数表示允许多个连接
         var out = new Rete.Output('num2', "输出", this.numSocket, true);
         inp1.addControl(new NumControl(this.editor, 'num'))
@@ -19,6 +20,10 @@ class NumComponent extends Rete.Component {
     }
 
     worker(node, inputs, outputs){
+        console.log('---------')
+        console.log(node)
+        console.log(inputs)
+        console.log(outputs)
     }
 }
 
