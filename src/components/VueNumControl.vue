@@ -1,5 +1,5 @@
 <template>
-    <div class="edit-box">
+    <div class="edit-box" v-if="false">
         <el-input v-model="name"><template slot="prepend">工作任务:</template></el-input>
         <div class="el-input el-input-group el-input-group--prepend">
             <div class="el-input-group__prepend">开始时间:</div>
