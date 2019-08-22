@@ -61,18 +61,6 @@ export default {
         await this.engine.process(this.editor.toJSON());
       });
 
-      this.editor.on('connectioncreate', res => {
-          console.log('connectionremoved')
-          console.log(res.output)
-          console.log(res.input)
-      } )
-
-      this.editor.on('error', ({ message, data }) => {
-          console.log('engine: err ->')
-          console.log(message)
-          console.log(data)
-      });
-
       this.editor.view.resize();
       AreaPlugin.zoomAt(this.editor);
       this.editor.trigger('process');
