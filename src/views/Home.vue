@@ -49,16 +49,12 @@ export default {
 
       const n1 = await this.numComponent.createNode({num: 2});
       const n2 = await this.numComponent.createNode({num: 4});
-      const n3 = await this.numComponent.createNode({num: 8});
       n1.position = [0,200];
       n2.position = [380, 400];
-      n3.position = [500, 240]
       this.editor.addNode(n1)
       this.editor.addNode(n2)
-      this.editor.addNode(n3)
 
       this.editor.connect(n1.outputs.get('num2'), n2.inputs.get('num1'));
-      this.editor.connect(n2.outputs.get('num2'), n3.inputs.get('num1'));
 
       this.editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
         await this.engine.abort();
