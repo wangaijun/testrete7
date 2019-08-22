@@ -93,14 +93,4 @@ export default {
     height: 100%;
     width: 100%;
   }
-  .socket.number{
-    background: #96b38a
-  }
-  /*.home {*/
-  /*  width: 100%;*/
-  /*  height: 100%;*/
-  /*}*/
-  /*.home .node-editor{*/
-  /*  !*height: 800px;*!*/
-  /*}*/
 </style>
