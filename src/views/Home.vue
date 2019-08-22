@@ -1,8 +1,6 @@
 <template>
 
-    <div id="rete">
-      <svg class="connection"><path class="main-path" d="M 842.084325518868 600.8071889132012 C 765.4559436492686 244.8071889132012 781.6552801928664 261.2978322691326 771.6552801928664 161.2978322691326"></path></svg>
-    </div>
+    <div id="rete" ref="rete"></div>
 <!--    <div>{{ret}}</div>-->
 
 </template>
@@ -22,50 +20,57 @@ export default {
   components: {
     VueNumControl
   },
+  data () {
+    return {
+      container: null,
+      editor: null,
+      engine: null,
+      numComponent: null,
+    }
+  },
   mounted() {
-    const container = document.querySelector('#rete');
-
-    const editor = new Rete.NodeEditor('demo@0.1.0', container);
-    editor.use(ConnectionPlugin);
-    editor.use(VueRenderPlugin)
-    editor.use(ContextMenuPlugin.default);
-    editor.use(AreaPlugin);
-    editor.use(CommentPlugin.default);
-    editor.use(HistoryPlugin);
-    editor.use(ConnectionMasteryPlugin.default);
-
-    const numComponent = new NumComponent(editor, VueNumControl, numSocket);
-
-    const engine = new Rete.Engine('demo@0.1.0');
-
-    editor.register(numComponent);
-
     (async () => {
-      engine.register(numComponent)
+      this.container = this.$refs.rete
 
-      const n1 = await numComponent.createNode({num: 2});
-      const n2 = await numComponent.createNode({num: 4});
-      const n3 = await numComponent.createNode({num: 8});
+      this.editor = new Rete.NodeEditor('demo@0.1.0', this.container);
+      this.editor.use(ConnectionPlugin);
+      this.editor.use(VueRenderPlugin)
+      this.editor.use(ContextMenuPlugin.default);
+      this.editor.use(AreaPlugin);
+      this.editor.use(CommentPlugin.default);
+      this.editor.use(HistoryPlugin);
+      this.editor.use(ConnectionMasteryPlugin.default);
+
+      this.numComponent = new NumComponent(this.editor, VueNumControl, numSocket);
+
+      this.engine = new Rete.Engine('demo@0.1.0');
+
+      this.editor.register(this.numComponent);
+      this.engine.register(this.numComponent)
+
+      const n1 = await this.numComponent.createNode({num: 2});
+      const n2 = await this.numComponent.createNode({num: 4});
+      const n3 = await this.numComponent.createNode({num: 8});
       n1.position = [0,200];
       n2.position = [380, 400];
       n3.position = [500, 240]
-      editor.addNode(n1)
-      editor.addNode(n2)
-      editor.addNode(n3)
+      this.editor.addNode(n1)
+      this.editor.addNode(n2)
+      this.editor.addNode(n3)
 
-      editor.connect(n1.outputs.get('num2'), n2.inputs.get('num1'));
-      editor.connect(n2.outputs.get('num2'), n3.inputs.get('num1'));
+      this.editor.connect(n1.outputs.get('num2'), n2.inputs.get('num1'));
+      this.editor.connect(n2.outputs.get('num2'), n3.inputs.get('num1'));
 
-      editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
-        await engine.abort();
-        await engine.process(editor.toJSON());
+      this.editor.on('process nodecreated noderemoved connectioncreated connectionremoved', async () => {
+        await this.engine.abort();
+        await this.engine.process(this.editor.toJSON());
       });
 
-      editor.view.resize();
-      AreaPlugin.zoomAt(editor);
-      editor.trigger('process');
+      this.editor.view.resize();
+      AreaPlugin.zoomAt(this.editor);
+      this.editor.trigger('process');
 
-      let data = editor.toJSON()
+      let data = this.editor.toJSON()
       console.log(data)
       this.ret = 0
     })();
